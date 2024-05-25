@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- Basically, useLevel makes it so the drawable can be drawn partially. -->
+
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape
             android:shape="ring"
             android:innerRadiusRatio="2.7"
             android:thicknessRatio="50"
-            android:useLevel="true"
+
+            android:useLevel="false"
 
             >
             <solid android:color="@color/lightGrey" />
