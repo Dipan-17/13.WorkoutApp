@@ -50,6 +50,15 @@ class ExerciseActivity : AppCompatActivity() {
     private fun setupRestView(){
         Log.i("Activity Change","Rest view is being setup")
 
+        //show the rest time stuff
+        binding?.flRestView?.visibility= View.VISIBLE
+        binding?.tvTitle?.visibility=View.VISIBLE
+
+        //hide the exercise stuff
+        binding?.tvExerciseName?.visibility=View.INVISIBLE
+        binding?.flExerciseView?.visibility=View.INVISIBLE
+        binding?.ivImage?.visibility=View.INVISIBLE
+
         //say we are going back and then coming back again -> we might clash with an existing timer
         if(restTimer!=null){
             restTimer?.cancel()
@@ -91,14 +100,23 @@ class ExerciseActivity : AppCompatActivity() {
     private fun setUpExerciseView(){
         Log.i("Activity Change","Exercise view is being setup")
 
-        binding?.flProgressBar?.visibility= View.INVISIBLE
-        binding?.tvTitle?.text="Exercise Name"
+        //hide the rest time stuff
+        binding?.flRestView?.visibility= View.INVISIBLE
+        //binding?.tvTitle?.text="Exercise Name"
+        binding?.tvTitle?.visibility=View.INVISIBLE
+
+        //display the exercise stuff
+        binding?.tvExerciseName?.visibility=View.VISIBLE
         binding?.flExerciseView?.visibility=View.VISIBLE
+        binding?.ivImage?.visibility=View.VISIBLE
 
         if(exerciseTimer!=null){
             exerciseTimer?.cancel()
             exerciseProgress=0
         }
+
+        binding?.ivImage?.setImageResource(exerciseList!![currentExercisePosition].getImage())
+        binding?.tvExerciseName?.text=exerciseList!![currentExercisePosition].getName()
 
         setExerciseProgressBar()
     }
@@ -119,7 +137,12 @@ class ExerciseActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                makeToast("30 Seconds are over -> Go to Rest")
+                //makeToast("30 Seconds are over -> Go to Rest")
+                if(currentExercisePosition<exerciseList?.size!!-1){
+                    setupRestView()
+                }else{
+                    makeToast("Exercises Completed")
+                }
             }
 
         }.start()
