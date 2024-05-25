@@ -55,11 +55,9 @@ class ExerciseActivity : AppCompatActivity() {
             restTimer?.cancel()
             restProgress=0
         }
-
-
-
         setRestProgressBar()
     }
+
     private fun setRestProgressBar(){
         binding?.ProgressBar?.progress=restProgress
 

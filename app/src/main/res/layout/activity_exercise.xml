@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ExerciseActivity">
 
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolBar_exercise"
 
@@ -19,6 +20,7 @@
         android:background="@color/white"
         app:titleTextColor="@color/colorPrimary"
         />
+
 
     <TextView
         android:id="@+id/tvTitle"
@@ -95,6 +97,40 @@
 
     </FrameLayout>
 
+    <ImageView
+        android:id="@+id/ivImage"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_jumping_jacks"
+
+        android:visibility="invisible"
+        tools:visibility="visible"
+
+        app:layout_constraintBottom_toTopOf="@id/tvExercise"
+        app:layout_constraintTop_toBottomOf="@id/toolBar_exercise"
+        />
+
+    <TextView
+        android:id="@+id/tvExercise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ExerciseName"
+        android:textColor="@color/colorAccent"
+        android:textSize="22sp"
+        android:textStyle="bold"
+
+        android:visibility="invisible"
+        tools:visibility="visible"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivImage"
+
+
+        />
+
+
     <FrameLayout
         android:id="@+id/flExerciseView"
         android:layout_width="100dp"
@@ -107,7 +143,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolBar_exercise"
+        app:layout_constraintTop_toBottomOf="@+id/tvExercise"
 
 
         android:background="@drawable/item_circular_color_accent_border"
