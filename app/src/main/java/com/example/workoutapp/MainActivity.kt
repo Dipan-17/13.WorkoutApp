@@ -1,5 +1,6 @@
 package com.example.workoutapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.FrameLayout
@@ -19,7 +20,8 @@ class MainActivity : AppCompatActivity() {
 
         //start button clicker
         binding?.flStart?.setOnClickListener {
-            makeToast("Start Clicked")
+            val intent=Intent(this,ExerciseActivity::class.java)
+            startActivity(intent)
         }
     }
 
