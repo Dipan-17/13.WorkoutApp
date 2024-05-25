@@ -18,6 +18,11 @@ class ExerciseActivity : AppCompatActivity() {
     //to set the exercise timer
     private var exerciseTimer:CountDownTimer?=null
     private var exerciseProgress:Int=0
+
+
+    private var exerciseList:ArrayList<ExerciseModel>?=null
+    private var currentExercisePosition = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //init binding
@@ -36,6 +41,8 @@ class ExerciseActivity : AppCompatActivity() {
         binding?.toolBarExercise?.setNavigationOnClickListener{
             onBackPressed()
         }
+
+        exerciseList=Constants.defaultExerciseList()
 
         setupRestView()
     }
@@ -72,6 +79,10 @@ class ExerciseActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 Log.d("Layout change","Rest timer is finished, now replacing the frame with exercise")
+
+                //once rest is finished -> Goto next exercise
+                currentExercisePosition++
+
                 setUpExerciseView()
             }
 
