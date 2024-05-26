@@ -53,11 +53,16 @@ class ExerciseActivity : AppCompatActivity() {
         //show the rest time stuff
         binding?.flRestView?.visibility= View.VISIBLE
         binding?.tvTitle?.visibility=View.VISIBLE
+        binding?.tvUpcomingLabel?.visibility=View.VISIBLE
+        binding?.tvUpcomingExerciseName?.visibility=View.VISIBLE
 
         //hide the exercise stuff
         binding?.tvExerciseName?.visibility=View.INVISIBLE
         binding?.flExerciseView?.visibility=View.INVISIBLE
         binding?.ivImage?.visibility=View.INVISIBLE
+
+        //set the next exercise name
+        binding?.tvUpcomingExerciseName?.text=exerciseList!![currentExercisePosition+1].getName().toString()
 
         //say we are going back and then coming back again -> we might clash with an existing timer
         if(restTimer!=null){
@@ -76,7 +81,7 @@ class ExerciseActivity : AppCompatActivity() {
 
         Log.i("Timer","Rest timer started")
 
-        restTimer=object:CountDownTimer(10000,1000){
+        restTimer=object:CountDownTimer(1000,1000){
 
             override fun onTick(p0: Long) {
                 restProgress++
@@ -102,8 +107,9 @@ class ExerciseActivity : AppCompatActivity() {
 
         //hide the rest time stuff
         binding?.flRestView?.visibility= View.INVISIBLE
-        //binding?.tvTitle?.text="Exercise Name"
         binding?.tvTitle?.visibility=View.INVISIBLE
+        binding?.tvUpcomingLabel?.visibility=View.INVISIBLE
+        binding?.tvUpcomingExerciseName?.visibility=View.INVISIBLE
 
         //display the exercise stuff
         binding?.tvExerciseName?.visibility=View.VISIBLE
@@ -128,7 +134,7 @@ class ExerciseActivity : AppCompatActivity() {
         //once time runs out onFinish is called
 
         Log.i("Timer","Exercise timer started")
-        exerciseTimer=object:CountDownTimer(30000,1000){
+        exerciseTimer=object:CountDownTimer(3000,1000){
 
             override fun onTick(p0: Long) {
                 exerciseProgress++

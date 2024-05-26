@@ -25,6 +25,7 @@
     <TextView
         android:id="@+id/tvTitle"
 
+        android:layout_marginBottom="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/flRestView"
@@ -97,6 +98,46 @@
 
     </FrameLayout>
 
+    <TextView
+        android:id="@+id/tvUpcomingLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upcoming Exercise"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        android:textStyle="bold"
+
+        android:visibility="invisible"
+        tools:visibility="visible"
+
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/flRestView"
+        app:layout_constraintBottom_toTopOf="@+id/tvUpcomingExerciseName"
+
+
+        />
+
+    <TextView
+        android:id="@+id/tvUpcomingExerciseName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ExerciseName"
+        android:textColor="@color/colorPrimary"
+        android:textSize="22sp"
+        android:textStyle="bold"
+
+        android:visibility="invisible"
+        tools:visibility="visible"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvUpcomingLabel"
+
+
+        />
+
     <ImageView
         android:id="@+id/ivImage"
         android:layout_width="match_parent"
@@ -105,7 +146,7 @@
         android:src="@drawable/ic_jumping_jacks"
 
         android:visibility="invisible"
-        tools:visibility="visible"
+        tools:visibility="invisible"
 
         app:layout_constraintBottom_toTopOf="@id/tvExerciseName"
         app:layout_constraintTop_toBottomOf="@id/toolBar_exercise"
