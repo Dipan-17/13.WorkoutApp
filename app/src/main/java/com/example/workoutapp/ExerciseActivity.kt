@@ -1,5 +1,6 @@
 package com.example.workoutapp
 
+import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -36,6 +37,10 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     //recycler view for status
     private var exerciseStatusAdapter:ExerciseStatusAdapter?=null
+
+    //for timer (in milli seconds)
+    private var restTimerDuration:Long=1
+    private var exerciseTimerDuration:Long=1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -121,7 +126,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         Log.i("Timer","Rest timer started")
 
-        restTimer=object:CountDownTimer(5000,1000){
+        restTimer=object:CountDownTimer(restTimerDuration*1000,1000){
 
             override fun onTick(p0: Long) {
                 restProgress++
@@ -180,7 +185,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         //once time runs out onFinish is called
 
         Log.i("Timer","Exercise timer started")
-        exerciseTimer=object:CountDownTimer(3000,1000){
+        exerciseTimer=object:CountDownTimer(exerciseTimerDuration*1000,1000){
 
             override fun onTick(p0: Long) {
                 exerciseProgress++
@@ -198,7 +203,13 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
                     setupRestView()
                 }else{
-                    makeToast("Exercises Completed")
+                    //makeToast("Exercises Completed")
+                    finish()//finish the exercise activity
+
+                    //this refers to current object only
+                    //here it is the countdown timer -> we can't pass it into intent
+                    val intent= Intent(this@ExerciseActivity,FinishActivity::class.java)
+                    startActivity(intent)
                 }
             }
 
