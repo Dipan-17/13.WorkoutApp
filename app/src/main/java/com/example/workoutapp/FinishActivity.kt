@@ -19,7 +19,8 @@ class FinishActivity : AppCompatActivity() {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
         binding?.toolbarFinishActivity?.setNavigationOnClickListener {
-            onBackPressed()
+            //onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         }
 
         binding?.btnFinish?.setOnClickListener {

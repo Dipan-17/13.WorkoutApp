@@ -58,7 +58,9 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
         //functionality of the back button
         binding?.toolBarExercise?.setNavigationOnClickListener{
-            onBackPressed()
+            //onBackPressed() -> deprecated
+            onBackPressedDispatcher.onBackPressed()
+
         }
 
         //get the exercise list
