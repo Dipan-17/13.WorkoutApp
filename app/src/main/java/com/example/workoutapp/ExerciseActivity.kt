@@ -1,5 +1,6 @@
 package com.example.workoutapp
 
+import android.app.Dialog
 import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
@@ -12,6 +13,7 @@ import android.widget.Toast
 import android.speech.tts.TextToSpeech
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.databinding.ActivityExerciseBinding
+import com.example.workoutapp.databinding.DialogCustomBackConfirmationBinding
 import java.util.Locale
 
 class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
@@ -59,8 +61,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         //functionality of the back button
         binding?.toolBarExercise?.setNavigationOnClickListener{
             //onBackPressed() -> deprecated
-            onBackPressedDispatcher.onBackPressed()
-
+            //onBackPressedDispatcher.onBackPressed()
+            customDialogForBackButton()
         }
 
         //get the exercise list
@@ -70,6 +72,29 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         setupRestView()
         setUpExerciseStatusRecyclerView()
+    }
+
+    private fun customDialogForBackButton() {
+        val customDialog=Dialog(this,R.style.FullScreenDialog)
+
+        //we need to bind the xml file (dialogCustomBackConfirmation) separately cause it is not part of exercise xml
+        val dialogBinding=DialogCustomBackConfirmationBinding.inflate(layoutInflater)
+        customDialog.setContentView(dialogBinding.root)
+        //whether clicking outside cancels the dialog or not
+        customDialog.setCanceledOnTouchOutside(false)
+        dialogBinding?.btnYes?.setOnClickListener {
+            this@ExerciseActivity.finish()
+            customDialog.dismiss()
+        }
+        dialogBinding?.btnNo?.setOnClickListener {
+            customDialog.dismiss()
+        }
+        customDialog.show()
+    }
+
+    override fun onBackPressed() {
+        customDialogForBackButton()
+        //super.onBackPressed()
     }
 
     private fun setUpExerciseStatusRecyclerView(){
