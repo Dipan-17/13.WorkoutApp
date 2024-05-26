@@ -1,25 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BMIActivity"
-    android:orientation="vertical"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".BMIActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolBar_bmi_activity"
+        android:id="@+id/toolbar_bmi_activity"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/white"/>
+        android:background="#FFFFFF" />
 
+    <!--positioned below toolbar-->
+    <!--TODO(Step 1 : Adding radio selection for METRIC and US Units.)-->
+    <!--START-->
+    <RadioGroup
+        android:id="@+id/rgUnits"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar_bmi_activity"
+        android:layout_margin="10dp"
+        android:background="@drawable/drawable_radio_group_tab_background"
+        android:orientation="horizontal">
+
+        <!--Checked variable is used to set the text color-->
+        <!--Text color drawable is a selector that sets the color according to this -->
+        <RadioButton
+            android:id="@+id/rbMetricUnits"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="0.50"
+            android:background="@drawable/drawable_units_tab_selector"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:text="METRIC UNITS"
+            android:textColor="@drawable/drawable_units_tab_text_color_selector"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/rbUsUnits"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="0.50"
+            android:background="@drawable/drawable_units_tab_selector"
+            android:button="@null"
+            android:checked="false"
+            android:gravity="center"
+            android:text="US UNITS"
+            android:textColor="@drawable/drawable_units_tab_text_color_selector"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </RadioGroup>
+    <!--END-->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilMetricUnitWeight"
         android:layout_margin="10dp"
         app:boxStrokeColor="@color/colorAccent"
         app:hintTextColor="@color/colorAccent"
-        android:layout_below="@id/toolBar_bmi_activity"
+        android:layout_below="@id/rgUnits"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -32,7 +73,6 @@
             android:inputType="numberDecimal"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
-
     <!--positioned below tilMetricUnitWeight-->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_below="@id/tilMetricUnitWeight"
@@ -105,9 +145,9 @@
     </LinearLayout>
     <!--positioned below llDiplayBMIResult-->
     <Button
-        android:id="@+id/btnCalculateUnits"
         android:layout_margin="10dp"
         android:layout_below="@id/llDiplayBMIResult"
+        android:id="@+id/btnCalculateUnits"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -116,5 +156,5 @@
         android:text="CALCULATE"
         android:textColor="#FFFFFF"
         android:textSize="18sp" />
-
 </RelativeLayout>
+    <!--END-->
