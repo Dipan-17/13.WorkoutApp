@@ -135,6 +135,10 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 //once rest is finished -> Goto next exercise
                 currentExercisePosition++
 
+                //to mark the next circle as white
+                exerciseList!![currentExercisePosition].setIsSelected(true)
+                exerciseStatusAdapter!!.notifyDataSetChanged()
+
                 setUpExerciseView()
             }
 
@@ -187,6 +191,11 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             override fun onFinish() {
                 //makeToast("30 Seconds are over -> Go to Rest")
                 if(currentExercisePosition<exerciseList?.size!!-1){
+                    //to mark the next circle as white
+                    exerciseList!![currentExercisePosition].setCompleted(true)
+                    exerciseList!![currentExercisePosition].setIsSelected(false)
+                    exerciseStatusAdapter!!.notifyDataSetChanged()
+
                     setupRestView()
                 }else{
                     makeToast("Exercises Completed")
