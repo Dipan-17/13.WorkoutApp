@@ -1,5 +1,7 @@
 package com.example.workoutapp
 
+import android.media.MediaPlayer
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -27,6 +29,9 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     //for text to speech
     private var tts:TextToSpeech?=null
+
+    //sound player to announce exercise end
+    private var  player:MediaPlayer?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,6 +78,18 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         binding?.tvUpcomingExerciseName?.text=exerciseList!![currentExercisePosition+1].getName().toString()
 
         speakOut("Now Rest for 10 seconds")
+
+        try{
+            val soundURI= Uri.parse("android.resource://com.example.workoutapp/"+ R.raw.press_start)
+            player=MediaPlayer.create(applicationContext,soundURI)
+            player?.isLooping=false
+            player?.start()
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
+
+
+
 
         //say we are going back and then coming back again -> we might clash with an existing timer
         if(restTimer!=null){
@@ -201,6 +218,10 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         if (tts != null) {
             tts?.stop()
             tts?.shutdown()
+        }
+
+        if(player!=null){
+            player!!.stop()
         }
 
 
