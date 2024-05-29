@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--TODO(Step 3 : Designed a custom selector for the Selected Item of the radio button.)-->
-<!--START-->
+
+<!--This color is applied only if the checked state is true-->
+<!--Because this is above the background layer -> if not checked -> display background only -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_checked="true">
         <shape android:shape="rectangle">
-
             <solid android:color="@color/colorAccent" />
-
             <corners android:radius="30dp" />
         </shape>
     </item>

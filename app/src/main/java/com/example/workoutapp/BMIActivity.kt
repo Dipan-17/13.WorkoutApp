@@ -11,12 +11,23 @@ import java.math.RoundingMode
 class BMIActivity : AppCompatActivity() {
 
     private var binding:BmiActivityBinding?=null
+
+    //for radio button
+    companion object{
+        //will let us know which is active
+        private const val METRIC_UNITS_VIEW="METRIC_UNIT_VIEW"
+        private const val US_UNITS_VIEW="US_UNIT_VIEW"
+    }
+    //In Kotlin, a companion object is a special object which is bound to (i.e. is a part of) a class definition
+
+    private var currentVisibleView:String= METRIC_UNITS_VIEW //holds value to make selected view visible
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=BmiActivityBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-        setSupportActionBar(binding?.toolBarBmiActivity)
+        setSupportActionBar(binding?.toolbarBmiActivity)
 
         //shows us the back button
         if(supportActionBar!=null){
@@ -24,22 +35,74 @@ class BMIActivity : AppCompatActivity() {
             supportActionBar?.title="Calculate BMI"
         }
         //functionality of the back button
-        binding?.toolBarBmiActivity?.setNavigationOnClickListener{
+        binding?.toolbarBmiActivity?.setNavigationOnClickListener{
             onBackPressedDispatcher.onBackPressed()
         }
 
-        binding?.btnCalculateUnits?.setOnClickListener {
-            if(validateMetricUnit()){
-                calculateBMI()
+        //by default set the metric units visible
+        makeVisibleMetricUnitsView()
+        //radio group on click listener
+        binding?.rgUnits?.setOnCheckedChangeListener { _, checkedId:Int ->
+            if(checkedId==R.id.rbMetricUnits){
+                makeVisibleMetricUnitsView()
             }else{
-                makeToast("Please enter values first")
+                makeVisibleUsUnitsView()
             }
+        }
+
+        binding?.btnCalculateUnits?.setOnClickListener {
+            calculateUnits()
         }
 
     }
 
+    private fun calculateUnits(){
+        if(currentVisibleView== METRIC_UNITS_VIEW){
+            if(validateMetricUnit()){
+                calculateBMIMetric()
+            }else{
+                makeToast("Please enter values first")
+            }
+        }else{
+            if(validateUsUnits()){
+                calculateBMIUS()
+            }else{
+                makeToast("Please enter values first")
+            }
+        }
+    }
 
-    private fun calculateBMI(){
+
+
+    private fun makeVisibleMetricUnitsView() {
+        currentVisibleView = METRIC_UNITS_VIEW // Current View is updated here.
+        binding?.tilMetricUnitWeight?.visibility = View.VISIBLE // METRIC  Height UNITS VIEW is Visible
+        binding?.tilMetricUnitHeight?.visibility = View.VISIBLE // METRIC  Weight UNITS VIEW is Visible
+        binding?.tilUsMetricUnitWeight?.visibility = View.GONE // make weight view Gone.
+        binding?.tilMetricUsUnitHeightFeet?.visibility = View.GONE // make height feet view Gone.
+        binding?.tilMetricUsUnitHeightInch?.visibility = View.GONE // make height inch view Gone.
+
+        binding?.etMetricUnitHeight?.text!!.clear() // height value is cleared if it is added.
+        binding?.etMetricUnitWeight?.text!!.clear() // weight value is cleared if it is added.
+
+        binding?.llDiplayBMIResult?.visibility = View.INVISIBLE
+    }
+    private fun makeVisibleUsUnitsView() {
+        currentVisibleView = US_UNITS_VIEW // Current View is updated here.
+        binding?.tilMetricUnitHeight?.visibility = View.INVISIBLE // METRIC  Height UNITS VIEW is InVisible
+        binding?.tilMetricUnitWeight?.visibility = View.INVISIBLE // METRIC  Weight UNITS VIEW is InVisible
+        binding?.tilUsMetricUnitWeight?.visibility = View.VISIBLE // make weight view visible.
+        binding?.tilMetricUsUnitHeightFeet?.visibility = View.VISIBLE // make height feet view visible.
+        binding?.tilMetricUsUnitHeightInch?.visibility = View.VISIBLE // make height inch view visible.
+
+        binding?.etUsMetricUnitWeight?.text!!.clear() // weight value is cleared.
+        binding?.etUsMetricUnitHeightFeet?.text!!.clear() // height feet value is cleared.
+        binding?.etUsMetricUnitHeightInch?.text!!.clear() // height inch is cleared.
+
+        binding?.llDiplayBMIResult?.visibility = View.INVISIBLE
+    }
+
+    private fun calculateBMIMetric(){
         val heightValue:Float=binding?.etMetricUnitHeight?.text.toString().toFloat()/100
         val weightValue:Float=binding?.etMetricUnitWeight?.text.toString().toFloat()
 
@@ -47,7 +110,16 @@ class BMIActivity : AppCompatActivity() {
         displayBMIMessage(bmi)
 
     }
+    private fun calculateBMIUS(){
+        val heightFeet:String=binding?.etUsMetricUnitHeightFeet?.text.toString()
+        val heightInch:String=binding?.etUsMetricUnitHeightInch?.text.toString()
+        val weightPounds:Float=binding?.etUsMetricUnitWeight?.text.toString().toFloat()
 
+        val height:Float=heightInch.toFloat()+heightFeet.toFloat()*12
+
+        val bmi=703*(weightPounds/(height*height))
+        displayBMIMessage(bmi)
+    }
     private fun displayBMIMessage(bmi:Float){
         binding?.llDiplayBMIResult?.visibility= View.VISIBLE
 
@@ -101,6 +173,7 @@ class BMIActivity : AppCompatActivity() {
     }
 
     //whether user has entered data or not
+    //for metric units
     private fun validateMetricUnit():Boolean{
         var isValid=true
 
@@ -109,6 +182,25 @@ class BMIActivity : AppCompatActivity() {
         }
         else if(binding?.etMetricUnitHeight?.text.toString().isEmpty()){
             isValid=false
+        }
+
+        return isValid
+    }
+
+    //for us units
+    private fun validateUsUnits(): Boolean {
+        var isValid = true
+
+        when {
+            binding?.etUsMetricUnitWeight?.text.toString().isEmpty() -> {
+                isValid = false
+            }
+            binding?.etUsMetricUnitHeightFeet?.text.toString().isEmpty() -> {
+                isValid = false
+            }
+            binding?.etUsMetricUnitHeightInch?.text.toString().isEmpty() -> {
+                isValid = false
+            }
         }
 
         return isValid
