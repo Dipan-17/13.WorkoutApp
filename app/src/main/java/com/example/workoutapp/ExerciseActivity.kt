@@ -41,8 +41,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var exerciseStatusAdapter:ExerciseStatusAdapter?=null
 
     //for timer (in milli seconds)
-    private var restTimerDuration:Long=1
-    private var exerciseTimerDuration:Long=1
+    private var restTimerDuration:Long=10
+    private var exerciseTimerDuration:Long=30
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -217,6 +217,11 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
             override fun onTick(p0: Long) {
                 exerciseProgress++
+
+                if(exerciseProgress==15){
+                    speakOut("Last 15 seconds")
+                }
+
                 binding?.ProgressBarExercise?.progress=30-exerciseProgress
                 binding?.tvTimerExercise?.text=(30-exerciseProgress).toString()
             }
