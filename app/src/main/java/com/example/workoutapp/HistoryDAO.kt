@@ -11,4 +11,7 @@ import kotlinx.coroutines.flow.Flow
 interface HistoryDAO {
     @Insert
     suspend fun insert(historyEntity: HistoryEntity)
+
+    @Query("SELECT * FROM 'workout_database'")
+    fun fetchAllDates():Flow<List<HistoryEntity>>
 }
