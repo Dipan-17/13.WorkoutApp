@@ -19,13 +19,13 @@
 8. How to play sound inside app and destroy it
 
 9. Implementing Recycler View:
-	Creating data class
-	Creating data objects
-	Creating an item design
-	Creating the adapter
-	Linking the adapter to recycler in activity
-	OnBind, OnCount etc
-	NotifyDatasetChange
+	a.Creating data class
+	b.Creating data objects
+	c.Creating an item design
+	d.Creating the adapter
+	f.Linking the adapter to recycler in activity
+	g.OnBind, OnCount etc
+	h.NotifyDatasetChange
 	
 10. Create radio group and set colors according to checked state
 
@@ -35,6 +35,7 @@
 
 13. Room Database:
 	a. Entity DAO and Database
+
 	b. app gradle: 
 		Plugin id("kotlin-kapt")
 		
@@ -46,7 +47,8 @@
    		 implementation("androidx.room:room-ktx: 2.3.0")
    		 implementation("androidx.activity:activity-ktx:1.9.0")
 
-	c. Entity: Create a data class
+	
+ 	c. Entity: Create a data class
 	d. Create a DAO (interface)
 	e. Create a database
 	f. Create application to initialise database
