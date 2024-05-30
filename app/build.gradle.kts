@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -40,6 +41,13 @@ android {
 }
 
 dependencies {
+
+    //room and lifecycle dependencies
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+    //coroutine support
+    implementation("androidx.room:room-ktx: 2.3.0")
+    implementation("androidx.activity:activity-ktx:1.9.0")
 
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.appcompat:appcompat:1.6.1")
